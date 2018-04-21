@@ -12,17 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
 });
 
 
 Auth::routes();
 
-Route::get('admin/home', 'HomeController@index')->name('home');
-Route::get('getProduct/{cate_id}', function($cate_id) {
-    $getProduct1 = App\Product::where('cate_id',$cate_id)->get();
- return $getProduct1;
-     
-});
+Route::get('admin/home', function() {
+    return redirect(route('login'));
+})->name('home');
+
 
   
