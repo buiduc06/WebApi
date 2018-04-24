@@ -22,7 +22,7 @@
 </style>
 <div class="ducpanda-intro container-fluid">
   <div class="container row" style="margin: auto;">
-    <div class="col-md-7" style="padding-right: 10em;padding-left: 2vw">
+    <div class="col-md-7" style="padding-right: 10em;padding-left: 2vw;padding-top: 4vw">
       <h2><b class="display-4" style="font-size: 1.3vw">PROJECT</b> 
         <span>{{$data->name}}</span>
       </h2>
