@@ -23,9 +23,11 @@
 					@endif
 				</div>
 				<br>
+				
 
 				<div class="form-group">
 					<label>Mô Tả Ngắn </label>
+					<br>
 					<textarea name="summary" style="min-width: 70%;min-height: 100px">
 						{{$data->summary}}
 					</textarea>
@@ -44,87 +46,93 @@
 				
 			</div>
 
+
 			<div class="col-sm-3 col-xs-12">
-				<div class="form-group">
-					<label>Danh Mục</label>
-					<select name="cate_id" class="form-control input-md">
+					<div class="form-group">
+						<p><B>DANH MUC</B></p>
 						@foreach($listcate as $list)
-						<option value="{{$list->id}}" {{$list->id == $data->cate_id?'selected':''}}>{{$list->name}}</option>
+						<label>
+							<input type="checkbox" name="category_id[]" value="{{$list->id}}"
+							@if(!empty($data->category->find($list->id)))
+							checked 
+							@endif
+							>
+							{{$list->name}}
+						</label><br>
 						@endforeach
-					</select>
-				</div>
-				<br>
-				<div class="form-group">
-					<label>Ứng Dụng</label>
-					<select name="status" class="form-control input-md">
-						<option value="1" {{ $data->status==1 ? 'selected':''}}>Trang CV</option>
-						<option value="2" {{ $data->status==2 ? 'selected':''}}>App Di Động</option>
-					</select>
-				</div>
-				<br>
-				<div class="form-group">
-					<label>Link Resource </label>
-					<input class="form-control input-md" type="text" name="github" placeholder="ex: https://github.com/buiduc06" value="{{$data->github}}">
-					@if(count($errors) > 0)
-					<small style="color: red">{{$errors->first('github')}}</small>
-					@endif
-				</div>
-				<br>
-				<div class="form-group">
-					<label>Link Demo </label>
-					<input class="form-control input-md" type="text" name="demolink" placeholder="https://ducpanda.com/sanpham/1" value="{{$data->demolink}}">
-					@if(count($errors) > 0)
-					<small style="color: red">{{$errors->first('github')}}</small>
-					@endif
-				</div>
+					</div>
+					<div class="form-group">
+						<label>Ứng Dụng</label>
+						<select name="status" class="form-control input-md">
+							@foreach($data->getAppAll() as $key =>$value)	
+						 <option value="{{$key}}" {{ $data->status==$key ? 'selected':''}}>{{$value}}</option>
+						 @endforeach
+						</select>
+					</div>
+					<br>
+					<div class="form-group">
+						<label>Link Resource </label>
+						<input class="form-control input-md" type="text" name="github" placeholder="ex: https://github.com/buiduc06" value="{{$data->github}}">
+						@if(count($errors) > 0)
+						<small style="color: red">{{$errors->first('github')}}</small>
+						@endif
+					</div>
+					<br>
+					<div class="form-group">
+						<label>Link Demo </label>
+						<input class="form-control input-md" type="text" name="demolink" placeholder="https://ducpanda.com/sanpham/1" value="{{$data->demolink}}">
+						@if(count($errors) > 0)
+						<small style="color: red">{{$errors->first('github')}}</small>
+						@endif
+					</div>
 
-				<div class="form-group">
-					<label>Hình Ảnh</label>
-					<input type="file" name="image" style="margin-bottom: 10px;" onchange="readURL(this);">
-					<img id="result-img" src="{{$data->getImage()}}" class="img-thumbnail"> 
-					@if(count($errors) > 0)
-					<small style="color: red">{{$errors->first('image')}}</small>
-					@endif
-				</div>
+					<div class="form-group">
+						<label>Hình Ảnh</label>
+						<input type="file" name="image" style="margin-bottom: 10px;" onchange="readURL(this);">
+						<img id="result-img" src="{{$data->getImage()}}" class="img-thumbnail"> 
+						@if(count($errors) > 0)
+						<small style="color: red">{{$errors->first('image')}}</small>
+						@endif
+					</div>
 
+
+				</div>
+				<div class="form-group col-sm-12">
+					<button type="submit" class="btn btn-success">Cập Nhật Sản Phẩm</button>
+				</div>
 
 			</div>
-			<div class="form-group col-sm-12">
-				<button type="submit" class="btn btn-success">Cập Nhật Sản Phẩm</button>
-			</div>
-			
-		</div>
 
 
-	</form>
+		</form>
 
-</section>
+	</section>
 
-@endsection
-@section('js')
-<script>
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
+	@endsection
+	@section('js')
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
 
-			reader.onload = function (e) {
-				$('#result-img')
-				.attr('src', e.target.result);
-			};
+				reader.onload = function (e) {
+					$('#result-img')
+					.attr('src', e.target.result);
+				};
 
-			reader.readAsDataURL(input.files[0]);
+				reader.readAsDataURL(input.files[0]);
+			}
 		}
-	}
-</script>
-<script>
-	$(function () {
+	</script>
+	<script>
+		$(function () {
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('editor1')
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
 })
-	$(function () {
+		$(function () {
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('editor2')

@@ -48,19 +48,25 @@
 
 			<div class="col-sm-3 col-xs-12">
 				<div class="form-group">
-					<label>Danh Muc</label>
-					<select name="cate_id" class="form-control input-md">
-						@foreach($listcate as $list)
-						<option value="{{$list->id}}">{{$list->name}}</option>
-						@endforeach
-					</select>
+					<p><B>DANH MUC</B></p>
+					@foreach($listcate as $list)
+					<label>
+						<input type="checkbox" name="category_id[]" value="{{$list->id}}">
+						{{$list->name}}
+					</label><br>
+					@endforeach
 				</div>
 
 				<div class="form-group">
 					<label>Ứng Dụng</label>
 					<select name="status" class="form-control input-md">
-						<option value="1">MyCV</option>
-						<option value="2">App Di Dong</option>
+						@php
+						$check = App\Product::first();
+						foreach ($check->getAppAll() as $key => $value) {
+							echo "<option value=".$key.">".$value."</option>";
+						}
+						@endphp
+
 					</select>
 				</div>
 

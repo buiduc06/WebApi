@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Product;
+use App\ProductCategory;
 class CategoryController extends Controller
 {
     /**
@@ -69,7 +70,7 @@ class CategoryController extends Controller
     {
         if (is_numeric($id)) {
             $data = Category::findOrFail($id);
-        return view('admin.category.edit', compact('data'));
+            return view('admin.category.edit', compact('data'));
         }
         return abort(404);
     }
@@ -83,12 +84,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $validator = $request->validate([
-            'name' => 'required|',
-        ]);
-        Category::updateOrCreate(['id'=>$id],['name' => $request->name]);
-        return redirect(route('category.index'))->with('msg', 'cập nhật danh mục thành công');
-    }
+     $validator = $request->validate([
+        'name' => 'required',
+    ]);
+     Category::updateOrCreate(['id'=>$id],['name' => $request->name]);
+     return redirect(route('category.index'))->with('msg', 'cập nhật danh mục thành công');
+ }
 
     /**
      * Remove the specified resource from storage.
@@ -98,12 +99,23 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $checkid = Category::findOrFail($id);
+        $checkid = Category::find($id);
         if (!empty($checkid)) {
-            Product::where('cate_id', $checkid->id)->delete();
+            $checkid->Product;
+
+            foreach ($checkid->Product as $value) { // lấy ra id sản phẩm
+                // nếu sản phẩm có từ 2 danh mục trở lên thì ko xóa sản phẩm đó
+                if ((ProductCategory::where('product_id',$value->id)->count())<2) {
+                    $value->delete();
+                }
+                // xoa thuoc tinh
+                ProductCategory::where('category_id', $id)->delete();
+            }
+            $checkid->delete();
+            return 'true';
         }
-        $checkid->delete();
+        return abort(404);
+
         // return redirect(route('category.index'))->with('msg', 'Xóa Danh Mục Và Sản phẩm Thành công');
-        return 'true';
     }
 }

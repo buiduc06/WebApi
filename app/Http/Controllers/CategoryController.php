@@ -47,15 +47,20 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-         
-        if (is_numeric($id) && $id>0) {
-            $checkcate = Category::findOrFail($id);
-            $data = Product::where('cate_id', $checkcate->id)->where('status',1)->get();
-            return view('admin.dataajax.data1', compact('data'));
-        }
-        return redirect(route('products.index'));
 
-    }
+        if (is_numeric($id) && $id>0) {
+         $checkcate = Category::find($id);
+         if ($checkcate = Category::find($id)) {
+             $data = $checkcate->Product->where('status',1);
+             return view('admin.dataajax.data1', compact('data'));
+         }else{
+           return view('admin.dataajax.data1');
+       }
+
+   }
+   return redirect(route('products.index'));
+
+}
 
     /**
      * Show the form for editing the specified resource.

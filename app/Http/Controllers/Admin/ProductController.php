@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
- 
+use App\ProductCategory;
+
 use Auth;
 class ProductController extends Controller
 {
@@ -31,7 +32,7 @@ class ProductController extends Controller
     {
         $listcate = Category::all();
         if (count($listcate)<=0) {
-        return redirect(route('category.create'))->with('msg', 'hiện chưa có danh mục nào mời bạn tạo danh mục trước');
+            return redirect(route('category.create'))->with('msg', 'hiện chưa có danh mục nào mời bạn tạo danh mục trước');
         }
         return view('admin.product.create', compact('listcate'));
     }
@@ -46,10 +47,12 @@ class ProductController extends Controller
     {
         $validator = $request->validate([
             'name' => 'required',
-            'image' =>'nullable|image'
+            'image' =>'nullable|image',
+            'category_id' =>'required'
         ],[
             'name.required'=>'vui long nhap name choa product',
             'image.image' =>'dinh dang anh khong dung',
+            'category_id.required' =>'vui long chon danh muc',
         ]);
 
         $sendData = $request->all();
@@ -59,12 +62,23 @@ class ProductController extends Controller
             $file->move(public_path('images/'), $photoname);
         }
 
-        $sendData['image'] = $photoname;
+        $sendData['image'] = isset($photoname)?$photoname: null;
         $sendData['user_id'] = Auth::id();
         $sendData['status'] = $request->status;
         $sendData['slug'] = str_slug($request->name,'-'); 
 
-        Product::create($sendData);
+        $returnProduct = Product::create($sendData);
+
+        if (isset($request->category_id) && is_array($request->category_id)) {
+
+            foreach ($request->category_id as $category_id) {
+                ProductCategory::create([
+                    'category_id' => $category_id,
+                    'product_id' => $returnProduct->id,
+
+                ]);
+            }
+        }
 
         return redirect(route('product.index'))->with('msg', 'tao san pham thanh cong');
     }
@@ -114,30 +128,36 @@ class ProductController extends Controller
             'image.image' =>'dinh dang anh khong dung',
         ]);
 
-        $sendData = $request->all();
         if ( $checkProduct = Product::findOrFail($id)) {
-         
+
+            $slug = !empty(Product::where('id','!=', $id)->where('slug', $checkProduct->slug)->first()) ? str_slug($request->name,'-') : $checkProduct->slug ;
+
             if ($request->hasFile('image')) {
                 $file = $request->image;
                 $photoname = str_slug($request->name, '-') . '-' . rand(1000, 10000) . '.' . $request->image->getClientOriginalExtension();
                 $file->move(public_path('images/'), $photoname);
-                 
             }
-            $checkProduct->name = $request->name;
-            $checkProduct->description = $request->description;
-            $checkProduct->image = isset($photoname) ?$photoname :$checkProduct->image;
-            $checkProduct->user_id = Auth::id();
-            $checkProduct->meta = $request->meta !=null ?$request->meta:'';
-            $checkProduct->github = $request->github !=null ?$request->github:'';
-            $checkProduct->status = $request->status;
-            $checkProduct->summary = $request->summary;
-            $checkProduct->demolink = $request->demolink;
-            $checkProduct->slug = str_slug($request->name,'-');  
-            $checkProduct->update();
+            $request->image = isset($photoname) ?$photoname :$checkProduct->image;
+            $request->slug = $slug;
+            $checkProduct->update($request->all());
 
-            return redirect(route('product.index'))->with('msg', 'cap nhat san pham thanh cong');
+            // check product_id in ProductCategory and delete
+
+            if ($checkproduct = ProductCategory::find($id) ) {
+             $checkproduct->delete();
+         }
+         if (isset($request->category_id) && is_array($request->category_id)) {
+            foreach ($request->category_id as $category_id) {
+                ProductCategory::create([
+                    'category_id' => $category_id,
+                    'product_id' => $id,
+
+                ]);
+            }
         }
+        return redirect(route('product.index'))->with('msg', 'cap nhat san pham thanh cong');
     }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -147,8 +167,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $checkProduct = Product::findOrFail($id);
-        $checkProduct->delete();
-        return 'true';
+
+        if ($checkProduct = Product::find($id)) {
+
+// check xem co product trong bangtrung gian k
+            if (ProductCategory::find($id)) {
+                ProductCategory::where('product_id', $id)->delete(); // co thi xoa
+            }
+            $checkProduct->delete(); // xoa san pham
+            return response()->json('true');
+        }
+        return abort(404);
+
     }
 }

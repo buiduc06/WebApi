@@ -12,10 +12,10 @@ class Category extends Model
 
     public function product()
     {
-    	return $this->hasMany('App\Product','id','cate_id');
+    	return $this->belongsToMany('App\Product','product_categories');
     }
     public function getTotalProduct()
     {
-    	return Product::where('cate_id', $this->id)->count();
+    	return ProductCategory::where('category_id', $this->id)->count();
     }
 }

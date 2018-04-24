@@ -37,7 +37,7 @@ $r = 'admin';
 
 // });
 Route::get('/', 'Admin\\AdminController@index')->name('admin.index');
-Route::resource('product', 'Admin\\ProductController');
+Route::resource('product', 'Admin\ProductController');
 
 Route::resource('category', 'Admin\\CategoryController');
 
@@ -45,10 +45,6 @@ Route::get('setting', 'Admin\\AdminController@setting')->name('admin.setting');
 Route::get('listapp', 'Admin\\AdminController@listApp')->name('admin.listapp');
 
  
-Route::post('category/show', function() {
-    return "a";
-})->name('category.ducpanda');
-
 
 
  ?>
