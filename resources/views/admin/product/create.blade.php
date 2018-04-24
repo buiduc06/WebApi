@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<section class="content" style="min-height: 800px">
+<section class="content" style="min-height: 1000px">
 
 	<form action="{{route('product.store')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 		{{csrf_field()}}
@@ -61,7 +61,7 @@
 					<label>Ứng Dụng</label>
 					<select name="status" class="form-control input-md">
 						@php
-						$check = App\Product::first();
+						$check = New App\Product;
 						foreach ($check->getAppAll() as $key => $value) {
 							echo "<option value=".$key.">".$value."</option>";
 						}
@@ -77,21 +77,14 @@
 					<small style="color: red">{{$errors->first('github')}}</small>
 					@endif
 				</div>
-				<br>
 
 				<div class="form-group">
-					<br>
 					<label>Link Demo </label>
 					<input class="form-control input-md" type="text" name="demolink" placeholder="https://ducpanda.com/sanpham/1">
 					@if(count($errors) > 0)
 					<small style="color: red">{{$errors->first('github')}}</small>
 					@endif
 				</div>
-
-
-
-
-				<br>
 				<div class="form-group">
 					<label>Hình Ảnh</label>
 					<input type="file" name="image" style="margin-bottom: 10px;" onchange="readURL(this);">
@@ -104,7 +97,8 @@
 
 			</div>
 			<div class="form-group col-sm-12">
-				<button type="submit" class="btn btn-success">Tạo Sản Phẩm</button>
+				<br>
+				<button type="submit" class="btn btn-success" >Tạo Sản Phẩm</button>
 			</div>
 			
 		</div>
