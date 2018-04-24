@@ -3,7 +3,7 @@
 
   @foreach($data as $item)
  
-  <div class="item col-lg-3 col-6">
+  <div class="item col-lg-3 col-6" style="cursor: pointer;">
    <div class="item-inner animated flipInX">
     <figure class="figure">
      <img class="ducpanda-img"  src="{{$item->getImage()}}"/>
