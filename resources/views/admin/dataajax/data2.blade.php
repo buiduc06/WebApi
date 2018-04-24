@@ -1,17 +1,18 @@
 <style type="text/css" media="screen">
 #imgproduct .img-show{
-  background:url({{$data->getImage()}})no-repeat;
+  background:url({{$data->getImage()}}) no-repeat;
   background-size:100%;
   display:block;
   text-align: center;
   padding-top: 20px;
   width:380px;
-  height:350px;
+  height:400px;
   -webkit-transition: background-position 3s ease-in-out;
   -moz-transition: background-position 3s ease-in-out;
   -ms-transition: background-position 3s ease-in-out;
   -o-transition: background-position 3s ease-in-out;
   transition: background-position 3s ease-in-out;
+  box-shadow: 1px 3px 20px 5px rgba( 1,2,2,0.05);
 }
 
 #imgproduct .img-show:hover {
