@@ -22,5 +22,10 @@ Route::get('admin/home', function() {
     return redirect(route('login'));
 })->name('home');
 
+Route::get('logout', function() {
+   Auth::logout();
+   return redirect(route('login'));
+})->name('logout');
+
 
   
