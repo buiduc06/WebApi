@@ -27,7 +27,9 @@
           <td>{{$item->id}}</td>
           <td>{{$item->name}}</td>
           <td>
-            <img src="{{$item->getImage()}}" class="img-thumbnail" width="100px" height="100px">
+            <img src="{{$item->getImage()}}" class="img-thumbnail" style="width: 200px;
+    height: 200px;
+    object-fit: cover;">
           </td>
           <td>
             <ul>

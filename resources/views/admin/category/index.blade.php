@@ -17,9 +17,12 @@
         </tr>
       </thead>
       <tbody>
-
+ 
         @if(isset($getdata) && !empty($getdata))
         @foreach($getdata as $item)
+
+
+
         <tr id="divdetele" data-id="{{$item->id}}">
           <td>{{$item->id}}</td>
           <td>{{$item->name}}</td>

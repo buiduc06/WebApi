@@ -88,7 +88,9 @@
 				<div class="form-group">
 					<label>Hình Ảnh</label>
 					<input type="file" name="image" style="margin-bottom: 10px;" onchange="readURL(this);">
-					<img id="result-img" src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image" class="img-thumbnail"> 
+					<img id="result-img" src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image" class="img-thumbnail"  style="width: 100%;
+    height: 200px;
+    object-fit: cover;"> 
 					@if(count($errors) > 0)
 					<small style="color: red">{{$errors->first('image')}}</small>
 					@endif
