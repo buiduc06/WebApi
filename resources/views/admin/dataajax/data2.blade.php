@@ -19,14 +19,44 @@
   background-position:0px 100%;
 
 }
+.detail-pj{
+padding-right: 10em;padding-left: 2vw;padding-top: 4vw
+}
+.row-detail{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media only screen and (max-width: 480px) and (min-width: 320px){
+  #imgproduct .img-show{
+    display:block;
+    padding-top: 20px;
+    height:200px;
+    width: 100%;
+    box-shadow: 1px 3px 20px 5px rgba( 1,2,2,0.05);
+
+  }
+  .detail-pj{
+  padding: 0;
+}
+.row-detail{ 
+}
+.theme-image{
+  padding: 0;
+}
+}
 </style>
 <div class="ducpanda-intro container-fluid">
-  <div class="container row" style="margin: auto;">
-    <div class="col-md-7" style="padding-right: 10em;padding-left: 2vw;padding-top: 4vw">
-      <h2><b class="display-4" style="font-size: 1.3vw">PROJECT</b> 
-        <span>{{$data->name}}</span>
+  <div class="container row-detail" style="margin: auto;">
+    <div class="col-md-7 col-xs-12 detail-pj">
+      <h2><b class="display-4" style="font-size: 1.5vw">PROJECT</b> 
+        <span style="font-size: 5.3vw">{{$data->name}}</span>
       </h2>
-      <div class="desc">
+      <div class="desc" style="font-size: 1vw">
         {{$data->summary}}
       </div>
       <div class="other-info clearfix">
@@ -46,7 +76,7 @@
       </div>
     </div>
 
-    <div class="col-md-5 theme-image" style="margin-top: 20px">
+    <div class="col-md-5 col-xs-12 theme-image" style="margin-top: 20px">
       <div id="imgproduct">
        <a class="img-show"></a>
      </div>
