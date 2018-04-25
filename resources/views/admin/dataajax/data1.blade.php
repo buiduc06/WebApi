@@ -4,10 +4,20 @@
 #imgproduct .img-thumb{
   display:block;
   padding-top: 20px;
-  width:240px;
-  height:150px;
+  width:17.8vw;
+  height:11.1vw;
   box-shadow: 1px 3px 20px 5px rgba( 1,2,2,0.05);
 
+}
+@media only screen and (max-width: 480px) and (min-width: 320px){
+  #imgproduct .img-thumb{
+  display:block;
+  padding-top: 20px;
+  height:200px;
+  width: 100%;
+  box-shadow: 1px 3px 20px 5px rgba( 1,2,2,0.05);
+
+}
 }
 
 </style>
@@ -16,7 +26,7 @@
   @foreach($data as $item)
   
   
-  <div class="item col-lg-3 col-6 animated flipInX" id="imgproduct" style="cursor: pointer;">
+  <div class="item col-md-3 col-xs-6 animated flipInX" id="imgproduct" style="cursor: pointer;">
    <a data-id="{{$item->id}}" class="myproduct-button figure imgproduct img-thumb" style="background:url({{$item->getImage()}}) no-repeat;
    background-size:100%;">
    {{-- <a class="img-thumb"></a> --}}
