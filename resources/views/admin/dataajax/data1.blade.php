@@ -4,29 +4,39 @@
 #imgproduct .img-thumb{
   display:block;
   padding-top: 20px;
-  width:17.8vw;
+  width:17.7vw;
   height:11.1vw;
   box-shadow: 1px 3px 20px 5px rgba( 1,2,2,0.05);
 
 }
+.row-option{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
 @media only screen and (max-width: 480px) and (min-width: 320px){
   #imgproduct .img-thumb{
-  display:block;
-  padding-top: 20px;
-  height:200px;
-  width: 100%;
-  box-shadow: 1px 3px 20px 5px rgba( 1,2,2,0.05);
+    display:block;
+    padding-top: 20px;
+    height:200px;
+    width: 100%;
+    box-shadow: 1px 3px 20px 5px rgba( 1,2,2,0.05);
 
-}
+  }
+ 
 }
 
 </style>
-<div class="items-wrapper isotope row">
+<div class="items-wrapper isotope row-option">
 
   @foreach($data as $item)
   
   
-  <div class="item col-md-3 col-xs-6 animated flipInX" id="imgproduct" style="cursor: pointer;">
+  <div class="item col-md-3 col-xs-12 animated flipInX" id="imgproduct" style="cursor: pointer;">
    <a data-id="{{$item->id}}" class="myproduct-button figure imgproduct img-thumb" style="background:url({{$item->getImage()}}) no-repeat;
    background-size:100%;">
    {{-- <a class="img-thumb"></a> --}}
