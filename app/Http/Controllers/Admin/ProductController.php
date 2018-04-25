@@ -137,9 +137,10 @@ class ProductController extends Controller
                 $photoname = str_slug($request->name, '-') . '-' . rand(1000, 10000) . '.' . $request->image->getClientOriginalExtension();
                 $file->move(public_path('images/'), $photoname);
             }
-            $request->image = isset($photoname) ?$photoname :$checkProduct->image;
-            $request->slug = $slug;
-            $checkProduct->update($request->all());
+            $rq = $request->all();
+            $rq['image'] = $request->hasFile('image') ? "$photoname" : $checkProduct->image;
+            $rq['slug']= $slug;
+            $checkProduct->update($rq);
 
             // check product_id in ProductCategory and delete
 
