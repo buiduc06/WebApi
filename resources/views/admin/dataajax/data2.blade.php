@@ -54,7 +54,7 @@ padding-right: 10em;padding-left: 2vw;padding-top: 4vw
   <div class="container row-detail" style="margin: auto;">
     <div class="col-md-7 col-xs-12 detail-pj">
       <h2><b class="display-4" style="font-size: 1.5vw">PROJECT</b> 
-        <span style="font-size: 5.3vw">{{$data->name}}</span>
+        <span style="font-size: 4vw">{{$data->name}}</span>
       </h2>
       <div class="desc" style="font-size: 1vw">
         {{$data->summary}}
@@ -86,19 +86,18 @@ padding-right: 10em;padding-left: 2vw;padding-top: 4vw
  <br><br>
  <div class="container row" style="margin: auto;">
   <div class="col-md-8">
-    <h4 style="font-size: 1.3vw;padding-bottom: 1vw">TÍNH NĂNG NỔI BẬT</h4>
     {!!$data->description!!}
   </div>
 
   <div class="col-md-4">
-   <h5 style="font-size: 1.3vw;border-bottom: 2px solid #1ca4dd;padding-bottom: 1vw;width: 80%">CÔNG NGHỆ SỬ DỤNG</h5>
+   <h5 style="font-size: 1vw;border-bottom: 2px solid #1ca4dd;padding-bottom: 1vw;width: 80%;font-weight: bold;">CÔNG NGHỆ ĐƯỢC SỬ DỤNG</h5>
    @php
    $arr = explode('|', $data->meta);
    for ($i=0; $i <sizeof($arr) ; $i++) { 
     echo "<li>$arr[$i]</li>";
   }
   @endphp
-  {{-- <li>{!!$data->meta!!}</li> --}}
+   
 </div>
 </div>
 </div>

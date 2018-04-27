@@ -116,5 +116,29 @@
 </script>
 @include('layouts.notify')
 @yield('js')
+
+<script>
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor1', {
+      filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
+      filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
+      filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
+      filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+      filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+      filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+    });
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+})
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor2')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+})
+</script>
 </body>
 </html>

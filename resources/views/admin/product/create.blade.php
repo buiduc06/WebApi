@@ -89,8 +89,8 @@
 					<label>Hình Ảnh</label>
 					<input type="file" name="image" style="margin-bottom: 10px;" onchange="readURL(this);">
 					<img id="result-img" src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image" class="img-thumbnail"  style="width: 100%;
-    height: 200px;
-    object-fit: cover;"> 
+					height: 200px;
+					object-fit: cover;"> 
 					@if(count($errors) > 0)
 					<small style="color: red">{{$errors->first('image')}}</small>
 					@endif
@@ -126,20 +126,5 @@
 		}
 	}
 </script>
-<script>
-	$(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('editor1')
-    //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5()
-})
-	$(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('editor2')
-    //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5()
-})
-</script>
+
 @endsection
